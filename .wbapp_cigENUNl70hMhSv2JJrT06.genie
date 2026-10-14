@@ -1,0 +1,5 @@
+appId: wbapp_cigENUNl70hMhSv2JJrT06
+name: 硬件性能天梯榜
+localDir: D:\www\hardware-ladder
+appType: web
+entryHtml: index.html
