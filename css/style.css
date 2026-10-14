@@ -1,0 +1,408 @@
+/* ============================================================
+   硬件性能天梯榜 — 样式
+   ============================================================ */
+
+:root{
+  --bg:#f4f6fa;
+  --bg-soft:#eef1f7;
+  --card:#ffffff;
+  --card-2:#fafbfd;
+  --line:#e3e8f0;
+  --line-2:#eef1f7;
+  --txt:#111827;
+  --txt-2:#4b5563;
+  --txt-3:#8b95a5;
+
+  --nv:#76b900;
+  --amd:#e02b20;
+  --intel:#0071c5;
+
+  --accent:#3b5bdb;
+  --accent-soft:#eef1fe;
+
+  --tier-flag:#7c3aed;
+  --tier-high:#dc2626;
+  --tier-midhigh:#ea8a00;
+  --tier-mid:#0d9488;
+  --tier-entry:#64748b;
+  --tier-old:#94a3b8;
+
+  --radius:14px;
+  --radius-sm:9px;
+  --shadow:0 1px 2px rgba(16,24,40,.05), 0 4px 14px -6px rgba(16,24,40,.10);
+  --shadow-lg:0 12px 40px -12px rgba(16,24,40,.28);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:"PingFang SC","HarmonyOS Sans SC","Microsoft YaHei","Segoe UI",-apple-system,BlinkMacSystemFont,sans-serif;
+  background:var(--bg);
+  color:var(--txt);
+  font-size:14px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:120px;
+}
+
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---------------- 顶栏 ---------------- */
+.topbar{
+  background:linear-gradient(135deg,#1e293b 0%,#312e81 55%,#4c1d95 100%);
+  color:#fff;
+  padding:26px 0 30px;
+  position:relative;
+  overflow:hidden;
+}
+.topbar::after{
+  content:"";
+  position:absolute;inset:0;
+  background:
+    radial-gradient(circle at 88% 12%, rgba(118,185,0,.30), transparent 42%),
+    radial-gradient(circle at 12% 92%, rgba(224,43,32,.26), transparent 46%);
+  pointer-events:none;
+}
+.topbar .wrap{position:relative;z-index:1}
+
+.brand-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.logo{
+  width:52px;height:52px;border-radius:15px;flex:none;
+  background:linear-gradient(140deg,#818cf8,#a78bfa 55%,#f472b6);
+  display:grid;place-items:center;
+  box-shadow:0 8px 22px -8px rgba(167,139,250,.9);
+}
+.logo svg{width:30px;height:30px}
+.topbar h1{font-size:23px;font-weight:800;letter-spacing:.4px}
+.topbar .sub{font-size:13px;color:rgba(255,255,255,.72);margin-top:2px}
+.topbar .badge-update{
+  margin-left:auto;font-size:12px;padding:6px 13px;border-radius:999px;
+  background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);
+  backdrop-filter:blur(6px);white-space:nowrap;
+}
+
+/* ---------------- 标签页 ---------------- */
+.tabs-wrap{
+  background:#fff;border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:40;
+  box-shadow:0 1px 3px rgba(16,24,40,.04);
+}
+.tabs-bar{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.tabs{display:flex;gap:4px;padding:8px 0}
+.platform-switch{display:flex;align-items:center;gap:9px;margin-left:auto;padding:8px 0}
+.ps-label{font-size:12px;font-weight:700;color:var(--txt-3);letter-spacing:.5px;white-space:nowrap}
+.platform-switch .seg{background:var(--bg-soft);border:1px solid var(--line)}
+
+/* 平台徽标 */
+.plattag{
+  font-size:10px;font-weight:700;padding:1px 6px;border-radius:5px;letter-spacing:.3px;
+  border:1px solid var(--line);color:var(--txt-3);background:var(--card-2);white-space:nowrap;
+}
+.plattag.desktop{color:#1d4ed8;border-color:rgba(29,78,216,.28);background:rgba(29,78,216,.07)}
+.plattag.mobile{color:#7c3aed;border-color:rgba(124,58,237,.28);background:rgba(124,58,237,.07)}
+
+/* 核显徽标 */
+.kindtag{
+  font-size:10px;font-weight:700;padding:1px 6px;border-radius:5px;letter-spacing:.3px;white-space:nowrap;
+}
+.kindtag.igpu{color:#0f766e;border:1px solid rgba(15,118,110,.28);background:rgba(15,118,110,.08)}
+.tab{
+  appearance:none;border:0;background:transparent;cursor:pointer;
+  font-family:inherit;font-size:14px;font-weight:600;color:var(--txt-2);
+  padding:10px 22px;border-radius:10px;transition:.16s;position:relative;
+}
+.tab:hover{background:var(--bg-soft);color:var(--txt)}
+.tab.active{background:var(--accent-soft);color:var(--accent)}
+.tab .cnt{
+  font-size:11px;font-weight:600;margin-left:6px;opacity:.7;
+  background:rgba(0,0,0,.06);padding:1px 7px;border-radius:999px;
+}
+.tab.active .cnt{background:rgba(59,91,219,.16)}
+
+/* ---------------- 控制区 ---------------- */
+.controls-wrap{background:#fff;border-bottom:1px solid var(--line);padding:14px 0 16px}
+.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+
+.search{position:relative;flex:1 1 260px;min-width:220px}
+.search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;stroke:var(--txt-3)}
+.search input{
+  width:100%;font-family:inherit;font-size:13.5px;color:var(--txt);
+  padding:10px 34px 10px 36px;border:1px solid var(--line);border-radius:10px;
+  background:var(--card-2);outline:none;transition:.16s;
+}
+.search input:focus{border-color:var(--accent);background:#fff;box-shadow:0 0 0 3px rgba(59,91,219,.10)}
+.search .clear{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  border:0;background:transparent;cursor:pointer;color:var(--txt-3);
+  font-size:17px;line-height:1;padding:3px 6px;border-radius:6px;display:none;
+}
+.search .clear:hover{background:var(--bg-soft);color:var(--txt)}
+.search.has-value .clear{display:block}
+
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{
+  appearance:none;cursor:pointer;font-family:inherit;font-size:12.5px;font-weight:600;
+  padding:7px 14px;border-radius:999px;border:1px solid var(--line);
+  background:var(--card-2);color:var(--txt-2);transition:.16s;white-space:nowrap;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.chip:hover{border-color:#c9d2e3;color:var(--txt)}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.55}
+.chip.active{background:var(--txt);color:#fff;border-color:var(--txt)}
+.chip.active .dot{opacity:1}
+.chip[data-brand="NVIDIA"].active{background:var(--nv);border-color:var(--nv);color:#fff}
+.chip[data-brand="AMD"].active{background:var(--amd);border-color:var(--amd);color:#fff}
+.chip[data-brand="Intel"].active{background:var(--intel);border-color:var(--intel);color:#fff}
+.chip[data-brand="Apple"].active{background:#3f3f46;border-color:#3f3f46;color:#fff}
+.chip[data-brand="Qualcomm"].active{background:#b91c1c;border-color:#b91c1c;color:#fff}
+
+.selects{display:flex;gap:8px;align-items:center;margin-left:auto;flex-wrap:wrap}
+.seg{
+  display:flex;background:var(--bg-soft);border-radius:10px;padding:3px;gap:2px;
+}
+.seg button{
+  appearance:none;border:0;background:transparent;cursor:pointer;font-family:inherit;
+  font-size:12.5px;font-weight:600;color:var(--txt-2);padding:7px 13px;border-radius:8px;transition:.16s;
+  white-space:nowrap;
+}
+.seg button:hover{color:var(--txt)}
+.seg button.active{background:#fff;color:var(--accent);box-shadow:0 1px 3px rgba(16,24,40,.12)}
+
+select{
+  font-family:inherit;font-size:12.5px;font-weight:600;color:var(--txt-2);
+  padding:8px 30px 8px 12px;border:1px solid var(--line);border-radius:10px;
+  background:var(--card-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238b95a5' stroke-width='2.4' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 10px center/14px;
+  appearance:none;cursor:pointer;outline:none;transition:.16s;
+}
+select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,91,219,.10)}
+
+/* ---------------- 概览统计 ---------------- */
+.stats{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:12px;
+  margin:22px 0 20px;
+}
+.stat{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:15px 17px;box-shadow:var(--shadow);
+}
+.stat .k{font-size:11.5px;color:var(--txt-3);font-weight:600;letter-spacing:.4px}
+.stat .v{font-size:20px;font-weight:800;margin-top:3px;letter-spacing:-.3px}
+.stat .v small{font-size:12px;font-weight:600;color:var(--txt-3);margin-left:4px}
+.stat .m{font-size:11.5px;color:var(--txt-3);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* ---------------- 天梯主体 ---------------- */
+.ladder{display:flex;flex-direction:column;gap:8px}
+
+.tier-head{
+  display:flex;align-items:center;gap:10px;
+  margin:22px 0 4px;padding-left:2px;
+}
+.tier-head:first-child{margin-top:0}
+.tier-head .bar{width:4px;height:17px;border-radius:3px;flex:none}
+.tier-head .t{font-size:14.5px;font-weight:800;letter-spacing:.3px}
+.tier-head .d{font-size:11.5px;color:var(--txt-3)}
+.tier-head .ln{flex:1;height:1px;background:var(--line);margin-left:6px}
+
+.row{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius-sm);
+  padding:11px 15px;display:grid;
+  grid-template-columns:44px minmax(190px,1.25fr) minmax(120px,2.4fr) 108px 34px;
+  align-items:center;gap:14px;
+  transition:.16s;cursor:pointer;position:relative;
+  animation:fadeUp .32s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.row:hover{border-color:#c9d2e3;box-shadow:var(--shadow);transform:translateY(-1px)}
+.row.is-open{border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,91,219,.09)}
+
+.rank{
+  font-size:13px;font-weight:800;color:var(--txt-3);text-align:center;
+  font-variant-numeric:tabular-nums;
+}
+.rank.top1{color:#b45309}
+.rank.top2{color:#64748b}
+.rank.top3{color:#b06a3b}
+
+.model{min-width:0}
+.model .nm{
+  font-size:13.5px;font-weight:700;letter-spacing:-.1px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.model .tags{display:flex;gap:5px;margin-top:3px;flex-wrap:wrap}
+.brandtag{
+  font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:5px;letter-spacing:.2px;
+}
+.brandtag.NVIDIA{background:rgba(118,185,0,.13);color:#4d7c00}
+.brandtag.AMD{background:rgba(224,43,32,.11);color:#c01f16}
+.brandtag.Intel{background:rgba(0,113,197,.11);color:#0060a8}
+.brandtag.Apple{background:rgba(63,63,70,.11);color:#3f3f46}
+.brandtag.Qualcomm{background:rgba(185,28,28,.11);color:#991b1b}
+.spec{
+  font-size:11px;color:var(--txt-3);padding:1px 0;white-space:nowrap;
+}
+
+.bar-cell{min-width:0}
+.bar-track{
+  height:9px;border-radius:999px;background:var(--line-2);overflow:hidden;position:relative;
+}
+.bar-fill{
+  height:100%;border-radius:999px;
+  background:linear-gradient(90deg,var(--accent),#7c8ff5);
+  transition:width .5s cubic-bezier(.22,.9,.3,1);
+}
+.bar-fill.b-NVIDIA{background:linear-gradient(90deg,#5f9e00,#a3e635)}
+.bar-fill.b-AMD{background:linear-gradient(90deg,#c01f16,#fb7185)}
+.bar-fill.b-Intel{background:linear-gradient(90deg,#0060a8,#38bdf8)}
+.bar-fill.b-Apple{background:linear-gradient(90deg,#3f3f46,#a1a1aa)}
+.bar-fill.b-Qualcomm{background:linear-gradient(90deg,#b91c1c,#fca5a5)}
+.bar-meta{display:flex;justify-content:space-between;font-size:10.5px;color:var(--txt-3);margin-top:4px}
+
+.score{
+  text-align:right;font-size:15px;font-weight:800;letter-spacing:-.3px;
+  font-variant-numeric:tabular-nums;
+}
+.score small{display:block;font-size:10px;font-weight:600;color:var(--txt-3);letter-spacing:0}
+
+.cmp-btn{
+  width:30px;height:30px;border-radius:9px;border:1px solid var(--line);
+  background:var(--card-2);cursor:pointer;display:grid;place-items:center;
+  color:var(--txt-3);transition:.16s;padding:0;
+}
+.cmp-btn:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+.cmp-btn.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.cmp-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.4;stroke-linecap:round}
+
+/* 展开详情 */
+.detail{
+  grid-column:1/-1;margin-top:11px;padding-top:11px;border-top:1px dashed var(--line);
+  display:none;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px 20px;
+}
+.row.is-open .detail{display:grid}
+.detail .d-item{display:flex;flex-direction:column;gap:1px}
+.detail .d-k{font-size:10.5px;color:var(--txt-3);font-weight:600;letter-spacing:.3px}
+.detail .d-v{font-size:12.5px;font-weight:600;color:var(--txt-2)}
+.detail .d-desc{
+  grid-column:1/-1;font-size:11.5px;color:var(--txt-3);
+  background:var(--bg-soft);border-radius:8px;padding:8px 11px;line-height:1.55;
+}
+
+/* ---------------- 表格视图 ---------------- */
+.table-wrap{
+  background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--shadow);margin-top:4px;
+}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:860px}
+thead th{
+  text-align:left;font-size:11px;font-weight:700;color:var(--txt-3);letter-spacing:.5px;
+  padding:12px 14px;background:var(--card-2);border-bottom:1px solid var(--line);
+  white-space:nowrap;position:sticky;top:0;
+}
+tbody td{padding:11px 14px;border-bottom:1px solid var(--line-2);white-space:nowrap}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--card-2)}
+td.num{font-variant-numeric:tabular-nums;font-weight:700}
+td .mini-bar{height:5px;border-radius:999px;background:var(--line-2);width:96px;overflow:hidden;display:inline-block;vertical-align:middle;margin-left:8px}
+td .mini-bar i{display:block;height:100%;border-radius:999px;background:var(--accent)}
+
+/* ---------------- 对比托盘 ---------------- */
+.compare-tray{
+  position:fixed;left:0;right:0;bottom:0;z-index:60;
+  background:rgba(255,255,255,.92);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);box-shadow:0 -8px 30px -12px rgba(16,24,40,.22);
+  transform:translateY(110%);transition:transform .28s cubic-bezier(.22,.9,.3,1);
+}
+.compare-tray.show{transform:none}
+.compare-tray .wrap{display:flex;align-items:center;gap:12px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+.compare-tray .lbl{font-size:12px;font-weight:700;color:var(--txt-3);white-space:nowrap}
+.picks{display:flex;gap:7px;flex-wrap:wrap;flex:1;min-width:0}
+.pick{
+  display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;
+  background:var(--accent-soft);color:var(--accent);padding:6px 8px 6px 11px;border-radius:9px;
+  white-space:nowrap;
+}
+.pick button{border:0;background:transparent;cursor:pointer;color:inherit;font-size:14px;line-height:1;opacity:.6;padding:0 2px}
+.pick button:hover{opacity:1}
+.btn{
+  appearance:none;border:0;cursor:pointer;font-family:inherit;font-size:13px;font-weight:700;
+  padding:10px 20px;border-radius:10px;transition:.16s;white-space:nowrap;
+}
+.btn.primary{background:var(--accent);color:#fff;box-shadow:0 6px 16px -8px rgba(59,91,219,.9)}
+.btn.primary:hover{background:#2f4bc7}
+.btn.primary:disabled{background:#c3cad9;box-shadow:none;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--txt-2);border:1px solid var(--line)}
+.btn.ghost:hover{background:var(--bg-soft);color:var(--txt)}
+
+/* ---------------- 对比弹窗 ---------------- */
+.modal{
+  position:fixed;inset:0;z-index:80;display:none;
+  background:rgba(15,23,42,.5);backdrop-filter:blur(3px);
+  padding:28px 20px;overflow-y:auto;
+}
+.modal.show{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.modal-box{
+  background:var(--card);border-radius:18px;max-width:940px;margin:0 auto;
+  box-shadow:var(--shadow-lg);overflow:hidden;animation:pop .26s cubic-bezier(.22,.9,.3,1);
+}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+.modal-head{
+  display:flex;align-items:center;gap:12px;padding:18px 22px;
+  border-bottom:1px solid var(--line);
+}
+.modal-head h2{font-size:16.5px;font-weight:800;flex:1}
+.modal-head .close{
+  border:0;background:var(--bg-soft);cursor:pointer;width:32px;height:32px;border-radius:9px;
+  font-size:18px;color:var(--txt-2);line-height:1;transition:.16s;
+}
+.modal-head .close:hover{background:var(--line);color:var(--txt)}
+.modal-body{padding:6px 22px 24px}
+
+.cmp-table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:520px}
+.cmp-table th,.cmp-table td{padding:11px 12px;border-bottom:1px solid var(--line-2);text-align:left;vertical-align:middle}
+.cmp-table thead th{font-size:12px;font-weight:700;background:var(--card-2)}
+.cmp-table tbody th{
+  font-size:11px;font-weight:700;color:var(--txt-3);letter-spacing:.4px;
+  background:var(--card-2);width:120px;white-space:nowrap;
+}
+.cmp-table .cbar{height:7px;border-radius:999px;background:var(--line-2);overflow:hidden;margin-top:4px}
+.cmp-table .cbar i{display:block;height:100%;border-radius:999px}
+.cmp-table .cval{font-weight:800;font-variant-numeric:tabular-nums}
+.cmp-table .best{color:#16a34a}
+.cmp-scroll{overflow-x:auto}
+.modal-foot{padding:0 22px 22px}
+
+/* ---------------- 空态 ---------------- */
+.empty{
+  text-align:center;padding:70px 20px;color:var(--txt-3);
+  background:var(--card);border:1px dashed var(--line);border-radius:var(--radius);
+}
+.empty .big{font-size:38px;margin-bottom:10px;opacity:.4}
+.empty p{font-size:13.5px}
+
+/* ---------------- 页脚 ---------------- */
+.foot{
+  margin:34px 0 0;padding:22px 0;border-top:1px solid var(--line);
+  font-size:11.5px;color:var(--txt-3);line-height:1.9;
+}
+.foot b{color:var(--txt-2)}
+
+/* ---------------- 响应式 ---------------- */
+@media (max-width:900px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .row{grid-template-columns:38px minmax(0,1fr) 92px 30px;gap:10px}
+  .bar-cell{grid-column:2/-1;grid-row:2}
+  .row{padding:11px 13px}
+  .selects{margin-left:0;width:100%}
+  .selects .seg,.selects select{flex:1}
+}
+@media (max-width:560px){
+  .topbar h1{font-size:19px}
+  .topbar .badge-update{margin-left:0}
+  .controls{gap:9px}
+  .chip{padding:6px 11px;font-size:12px}
+  .tab{padding:9px 15px;font-size:13px}
+  .score{font-size:13.5px}
+}

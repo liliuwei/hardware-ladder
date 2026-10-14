@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>硬件性能天梯榜 · 显卡 &amp; 处理器性能排名</title>
+<meta name="description" content="显卡与处理器的综合性能天梯排名，基于 3DMark Time Spy / Port Royal 与 Cinebench R23 公开跑分数据，支持搜索、筛选与多型号对比。">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand-row">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 20h4v-6H3zM10 20h4V9h-4zM17 20h4V4h-4z"/>
+        </svg>
+      </div>
+      <div>
+        <h1>硬件性能天梯榜</h1>
+        <p class="sub">桌面端 &amp; 移动端 · 显卡与处理器综合性能排名 &nbsp;|&nbsp; 光栅 / 光追 / 多核 / 单核 / 游戏 多维度对比</p>
+      </div>
+      <div class="badge-update" id="updateBadge">数据版本 —</div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs-wrap">
+  <div class="wrap tabs-bar">
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-cat="gpu">显卡 GPU<span class="cnt" id="cntGpu">0</span></button>
+      <button class="tab" data-cat="cpu">处理器 CPU<span class="cnt" id="cntCpu">0</span></button>
+    </div>
+    <div class="platform-switch">
+      <span class="ps-label">平台</span>
+      <div class="seg" id="platformSeg"></div>
+    </div>
+  </div>
+</nav>
+
+<section class="controls-wrap">
+  <div class="wrap controls">
+    <div class="search" id="searchBox">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.2-3.2"/></svg>
+      <input id="search" type="text" placeholder="搜索型号，例如 RTX 5070 / 9800X3D / RDNA 4" autocomplete="off">
+      <button class="clear" id="searchClear" title="清空">×</button>
+    </div>
+
+    <div class="chips" id="brandChips"></div>
+
+    <div class="selects">
+      <div class="seg" id="metricSeg"></div>
+      <select id="kindSelect" title="显卡类型筛选">
+        <option value="all">独显 + 核显</option>
+        <option value="dgpu">仅独立显卡</option>
+        <option value="igpu">仅集成显卡</option>
+      </select>
+      <select id="eraSelect" title="按发布年代筛选">
+        <option value="all">全部年代</option>
+        <option value="2024">2024 年至今</option>
+        <option value="2020">2020 - 2023</option>
+        <option value="2016">2016 - 2019</option>
+        <option value="2010">2010 - 2015</option>
+        <option value="old">2009 及以前</option>
+      </select>
+      <select id="sortSelect">
+        <option value="score">按性能分排序</option>
+        <option value="new">按发布时间（新→旧）</option>
+        <option value="old">按发布时间（旧→新）</option>
+        <option value="name">按型号名称</option>
+      </select>
+      <div class="seg" id="viewSeg">
+        <button data-view="ladder" class="active">天梯图</button>
+        <button data-view="table">表格</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="wrap">
+  <div class="stats" id="stats"></div>
+  <div class="ladder" id="ladder"></div>
+  <div class="table-wrap hidden" id="tableWrap" style="display:none">
+    <div class="table-scroll">
+      <table id="dataTable">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer class="foot">
+    <b>收录范围：</b>2008 年至今，分<b>桌面端</b>与<b>移动端</b>两套天梯，共 1560+ 款（显卡 421 · 处理器 1147）。
+    显卡覆盖 NVIDIA GTX 400 → RTX 50、AMD HD 7000 → RX 9000、Intel HD/Iris/UHD/Arc 全系及 Apple M 系列；
+    处理器覆盖 Intel 凌动/Core 2 → 酷睿 Ultra 200 / Panther Lake、AMD Phenom II → 锐龙 9000 与 Threadripper、
+    Apple M1 → M6、高通骁龙 X / X2，含各代 U / Y / H / HX / MQ / HQ / QM 全后缀。
+    <br><b>数据说明：</b>显卡光栅性能取自 3DMark Time Spy Graphics（显卡分），光追性能取自 3DMark Port Royal；
+    处理器多核 / 单核性能取自 Cinebench R23，游戏性能为以桌面 Ryzen 7 9800X3D = 100 为基准的相对指数。
+    型号清单参考了第三方天梯站（PassMark / Notebookcheck / nanoreview 口径）的收录范围，分数统一换算到上述基准 ——
+    因此<b>部分型号（尤其笔记本显卡、低压 U/Y 系列、凌动与 Bay Trail 核显、HEDT 平台及 2019 年前的型号）为换算估值</b>，
+    同型号会因频率、功耗墙、驱动版本与散热条件产生浮动，仅用于横向性能对比，不作为精确规格依据。
+    <br><b>注意：</b>桌面端与移动端<b>共用同一评分量纲</b>，因此可以直接横向比较（例如移动端旗舰约相当于桌面端中高端）；
+    但移动端性能受笔记本模具的功耗与散热释放影响极大，同芯片不同机型差异可达 30% 以上 —— 低压 U 系列尤其明显。
+    2016 年以前的老硬件在老平台上受瓶颈限制，此处取上限估计值。
+    Apple / 高通平台无 3DMark Port Royal 原生成绩，光追一栏按"无成绩"处理。
+    <br><b>提示：</b>天梯排名是性能参照系，不代表选购建议——还需结合分辨率、显存容量、功耗与价格综合判断。
+    跨代对比时请注意：显存容量、驱动支持周期与新技术特性（如 DLSS / FSR / 光追）的差距，往往比跑分差距影响更大。
+  </footer>
+</main>
+
+<!-- 对比托盘 -->
+<div class="compare-tray" id="tray">
+  <div class="wrap">
+    <span class="lbl">已选 <span id="pickCount">0</span>/4</span>
+    <div class="picks" id="picks"></div>
+    <button class="btn ghost" id="clearPicks">清空</button>
+    <button class="btn primary" id="openCompare" disabled>开始对比</button>
+  </div>
+</div>
+
+<!-- 对比弹窗 -->
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>型号参数对比</h2>
+      <button class="close" id="closeModal" title="关闭">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="cmp-scroll"><table class="cmp-table" id="cmpTable"></table></div>
+    </div>
+    <div class="modal-foot">
+      <p style="font-size:11.5px;color:#8b95a5;line-height:1.7">
+        对比条长度为该项在所有参选型号中的相对占比，<span style="color:#16a34a;font-weight:700">绿色</span>表示该项最优。
+        不同指标量纲不同，请勿跨行比较绝对数值。
+      </p>
+    </div>
+  </div>
+</div>
+
+<script src="js/meta.js"></script>
+<script src="js/gpu-desktop.js"></script>
+<script src="js/gpu-desktop-2.js"></script>
+<script src="js/gpu-desktop-3.js"></script>
+<script src="js/gpu-mobile.js"></script>
+<script src="js/gpu-mobile-2.js"></script>
+<script src="js/gpu-mobile-3.js"></script>
+<script src="js/cpu-desktop.js"></script>
+<script src="js/cpu-desktop-2.js"></script>
+<script src="js/cpu-desktop-3.js"></script>
+<script src="js/cpu-mobile.js"></script>
+<script src="js/cpu-mobile-2.js"></script>
+<script src="js/cpu-mobile-3.js"></script>
+<script src="js/cpu-mobile-4.js"></script>
+<script src="js/cpu-mobile-5.js"></script>
+<script src="js/cpu-mobile-6.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
